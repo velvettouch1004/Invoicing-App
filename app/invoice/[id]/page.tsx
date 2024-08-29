@@ -1,10 +1,10 @@
-import Subheading from "@/components/Subheading";
-import InvoiceDetails from "@/components/invoice/InvoiceDetails";
-import { InvoiceData } from "@/lib/types/data";
-import { Metadata } from "next";
+import Subheading from '@/components/Subheading';
+import InvoiceDetails from '@/components/invoice/InvoiceDetails';
+import { InvoiceData } from '@/lib/types/data';
+import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: "Invoice Details",
+  title: 'Invoice Details',
 };
 
 export default async function getInvoiceById({
@@ -17,12 +17,12 @@ export default async function getInvoiceById({
     const res = await fetch(
       `${process.env.API_BASE_URL}/api/invoices/${params.id}`,
       {
-        cache: "no-store",
-      }
+        cache: 'no-store',
+      },
     );
 
     if (!res.ok) {
-      throw new Error("Failed to fetch invoice");
+      throw new Error('Failed to fetch invoice');
     }
 
     invoice = await res.json();

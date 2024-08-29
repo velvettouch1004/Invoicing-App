@@ -3,10 +3,8 @@
 @tailwind utilities;
 
 @layer base {
-  body {
-    @apply bg-black;
-    @apply text-brightGray;
-  }
+  body {}
+
   h1 {
     font-size: clamp(1.5rem, 0.2857rem + 6.0714vw, 10rem);
     font-style: normal;
@@ -15,6 +13,7 @@
     @apply font-sans;
     @apply uppercase;
   }
+
   h2 {
     font-size: 1.5rem;
     font-style: normal;
@@ -22,12 +21,14 @@
     line-height: normal;
     text-transform: uppercase;
   }
+
   h3 {
     font-size: 1.2rem;
     font-style: normal;
     font-weight: 700;
     line-height: 1.5rem;
   }
+
   p,
   body {
     font-size: 1rem;

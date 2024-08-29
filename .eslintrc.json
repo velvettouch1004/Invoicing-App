@@ -8,8 +8,6 @@
     "@innovixx/eslint-config/configs/react",
     "@innovixx/eslint-config/configs/typescript",
     "next/core-web-vitals",
-    "plugin:@typescript-eslint/recommended",
-    "prettier",
     "plugin:storybook/recommended",
     "next/core-web-vitals",
     "plugin:storybook/recommended"
@@ -36,7 +34,8 @@
     "ui",
     ".storybook",
     "tailwind.config.ts",
-    "tests-examples"
+    "tests-examples",
+    ".next"
   ],
   "root": true
 }
