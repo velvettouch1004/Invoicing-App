@@ -1,8 +1,8 @@
-import Invoice from "@/models/Invoice";
-import { MongoNetworkError } from "mongodb";
-import { NextResponse } from "next/server";
+import Invoice from '@/models/Invoice';
+import { MongoNetworkError } from 'mongodb';
+import { NextResponse } from 'next/server';
 
-export async function GET(request: Request) {
+export async function GET() {
   try {
     const invoices = await Invoice.find();
     return NextResponse.json({ invoices }, { status: 200 });
@@ -10,20 +10,19 @@ export async function GET(request: Request) {
     console.error(error);
     if (error instanceof MongoNetworkError) {
       return NextResponse.json(
-        { message: "Network error occurred while fetching invoices", error },
-        { status: 500 }
-      );
-    } else {
-      return NextResponse.json(
-        { message: "Error fetching invoices", error },
-        { status: 500 }
+        { error, message: 'Network error occurred while fetching invoices' },
+        { status: 500 },
       );
     }
+    return NextResponse.json(
+      { error, message: 'Error fetching invoices' },
+      { status: 500 },
+    );
   }
 }
 
 export async function POST(request: Request) {
-  console.log("Raw request body:", request.body);
+  // console.log('Raw request body:', request.body);
 
   try {
     const body = await request.json();
@@ -31,12 +30,12 @@ export async function POST(request: Request) {
 
     await Invoice.create(invoiceData);
 
-    return NextResponse.json({ message: "Invoice created" }, { status: 201 });
+    return NextResponse.json({ message: 'Invoice created' }, { status: 201 });
   } catch (error) {
     console.error(error);
     return NextResponse.json(
-      { message: "Error creating invoice", error },
-      { status: 500 }
+      { error, message: 'Error creating invoice' },
+      { status: 500 },
     );
   }
 }

@@ -1,13 +1,13 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import { InvoiceForm } from "@/components/invoice/InvoiceForm";
+import type { Meta, StoryObj } from '@storybook/react';
+import { InvoiceForm } from '@/components/invoice/InvoiceForm';
 
 const meta = {
-  title: "Invoicing App/Invoice Form",
   component: InvoiceForm,
-  tags: ["autodocs"],
   parameters: {
-    layout: "centered",
+    layout: 'centered',
   },
+  tags: ['autodocs'],
+  title: 'Invoicing App/Invoice Form',
 } satisfies Meta<typeof InvoiceForm>;
 
 export default meta;
@@ -17,23 +17,23 @@ type Story = StoryObj<typeof meta>;
 export const InvoiceFormComponent: Story = {
   args: {
     initialValues: {
-      businessName: "",
-      businessEmail: "",
-      businessAddress: "",
-      businessCity: "",
-      businessZip: "",
-      businessCountry: "",
-      clientName: "",
-      clientEmail: "",
-      clientAddress: "",
-      clientCity: "",
-      clientZip: "",
-      clientCountry: "",
+      businessAddress: '',
+      businessCity: '',
+      businessCountry: '',
+      businessEmail: '',
+      businessName: '',
+      businessZip: '',
+      clientAddress: '',
+      clientCity: '',
+      clientCountry: '',
+      clientEmail: '',
+      clientName: '',
+      clientZip: '',
       invoiceDate: new Date(),
-      paymentTerms: "",
-      paymentDue: "",
-      status: "",
-      projectName: "",
+      paymentDue: '',
+      paymentTerms: '',
+      projectName: '',
+      status: '',
     },
     isEditing: false,
     onSubmit: (data) => {

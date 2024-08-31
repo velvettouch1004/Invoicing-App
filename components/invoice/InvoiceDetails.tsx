@@ -1,17 +1,17 @@
-import { InvoiceData } from "@/lib/types/data";
-import EditInvoice from "./EditInvoice";
-import DeleteInvoice from "./DeleteInvoice";
-import { format } from "date-fns";
-import Status from "../Status";
-import Separator from "../Separator";
-import MarkAsPaid from "../Paid";
+import { InvoiceData } from '@/lib/types/data';
+import { format } from 'date-fns';
+import EditInvoice from './EditInvoice';
+import DeleteInvoice from './DeleteInvoice';
+import Status from '../Status';
+import Separator from '../Separator';
+import MarkAsPaid from '../Paid';
 
 export default function InvoiceDetails({
   invoice,
-  onDelete,
+  //  onDelete,
 }: {
   invoice: InvoiceData;
-  onDelete?: () => void;
+  // onDelete?: () => void;
 }) {
   return (
     <div className="flex flex-col gap-6 flex-1 sm:min-h-screen max-w-[1200px] w-full mx-auto">
@@ -20,13 +20,16 @@ export default function InvoiceDetails({
           <h1>{invoice.businessName}</h1>
           <p>{invoice.businessEmail}</p>
           <p>{`Invoice #${invoice._id}`}</p>
-          <p>{format(invoice.invoiceDate, "PPP")}</p>
+          <p>{format(invoice.invoiceDate, 'PPP')}</p>
           <Status status={invoice.status} />
         </div>
         <div className="flex flex-wrap sm:items-center gap-4">
-          {invoice.status !== "paid" && <MarkAsPaid />}
+          {invoice.status !== 'paid' && <MarkAsPaid />}
           <EditInvoice invoiceId={invoice._id} />
-          <DeleteInvoice invoiceId={invoice._id} onDelete={onDelete} />
+          <DeleteInvoice
+            invoiceId={invoice._id}
+          // onDelete={onDelete}
+          />
         </div>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 items-end gap-4">

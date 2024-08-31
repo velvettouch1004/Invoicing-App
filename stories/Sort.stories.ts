@@ -1,13 +1,13 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import SortInvoices from "@/components/Sort";
+import type { Meta, StoryObj } from '@storybook/react';
+import SortInvoices from '@/components/Sort';
 
 const meta = {
-  title: "Invoicing App/Sort Button",
   component: SortInvoices,
-  tags: ["autodocs"],
   parameters: {
-    layout: "centered",
+    layout: 'centered',
   },
+  tags: ['autodocs'],
+  title: 'Invoicing App/Sort Button',
 } satisfies Meta<typeof SortInvoices>;
 
 export default meta;

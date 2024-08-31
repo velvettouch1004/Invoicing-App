@@ -1,6 +1,6 @@
-import { StatusProps } from "@/lib/types/props";
-import { Badge } from "./ui/badge";
-import { statusTextClassMap, statusBgClassMap } from "@/lib/types/data";
+import { StatusProps } from '@/lib/types/props';
+import { statusTextClassMap, statusBgClassMap } from '@/lib/types/data';
+import { Badge } from './ui/badge';
 
 export default function Status({ status }: StatusProps) {
   const textColor = statusTextClassMap[status];

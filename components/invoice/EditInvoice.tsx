@@ -1,18 +1,18 @@
-"use client";
+'use client';
 
-import * as z from "zod";
+import * as z from 'zod';
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTrigger,
-} from "@/components/ui/dialog";
-import { Button } from "../ui/button";
-import { toast } from "sonner";
-import { InvoiceForm } from "./InvoiceForm";
-import { InvoiceFormSchema } from "@/lib/schemas";
-import { useEffect, useState } from "react";
-import { InvoiceData } from "@/lib/types/data";
+} from '@/components/ui/dialog';
+import { toast } from 'sonner';
+import { InvoiceFormSchema } from '@/lib/schemas';
+import { useEffect, useState } from 'react';
+import { InvoiceData } from '@/lib/types/data';
+import { InvoiceForm } from './InvoiceForm';
+import { Button } from '../ui/button';
 
 export default function EditInvoice({ invoiceId }: { invoiceId: string }) {
   const [invoiceData, setInvoiceData] = useState<InvoiceData | null>(null);
@@ -21,33 +21,34 @@ export default function EditInvoice({ invoiceId }: { invoiceId: string }) {
     fetch(`/api/invoices/${invoiceId}`)
       .then((response) => response.json())
       .then((data) => {
-        data.invoiceDate = new Date(data.invoiceDate);
+        const newData = data;
+        newData.invoiceDate = new Date(data.invoiceDate);
         setInvoiceData(data as InvoiceData);
       })
-      .catch((error) => console.error("Error fetching invoice data", error));
+      .catch((error) => console.error('Error fetching invoice data', error));
   }, [invoiceId]);
 
   function onSubmit(data: z.infer<typeof InvoiceFormSchema>) {
-    fetch("/api/invoices", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+    fetch('/api/invoices', {
       body: JSON.stringify(data),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      method: 'POST',
     })
       .then((response) => {
         if (!response.ok) {
-          throw new Error("Failed to edit invoice");
+          throw new Error('Failed to edit invoice');
         }
-        console.log(response);
+        // console.log(response);
         return response.json();
       })
-      .then((data) => {
-        toast("Invoice edited");
+      .then(() => {
+        toast('Invoice edited');
       })
       .catch((error) => {
         console.error(error);
-        toast("Error editing invoice");
+        toast('Error editing invoice');
       });
   }
 
@@ -66,7 +67,7 @@ export default function EditInvoice({ invoiceId }: { invoiceId: string }) {
           <div className="border border-dustStorm" />
         </DialogHeader>
         <InvoiceForm
-          onSubmit={onSubmit}
+          onSubmit={() => onSubmit}
           initialValues={invoiceData}
           isEditing
         />

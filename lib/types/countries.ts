@@ -1,39 +1,3 @@
-export interface Country {
-  name: Name;
-  tld: string;
-  cca2: string;
-  ccn3: string;
-  cca3: string;
-  independent: boolean;
-  status: string;
-  unMember: boolean;
-  currencies: Currency;
-  idd: Idd;
-  capital: string[];
-  altSpellings: string[];
-  region: string;
-  subregion: string;
-  languages: {
-    [key: string]: string;
-  };
-  translations: Translation;
-  latlng: number[];
-  landlocked: boolean;
-  area: number;
-  denonyms: Denonym;
-  flag: [key: string];
-  maps: Maps;
-  population: number;
-  car: Car;
-  timezones: string[];
-  continents: string[];
-  flags: Flags;
-  coatOfArms: CoatOfArms;
-  startOfWeek: string;
-  capitalInfo: CapitalInfo;
-  postalCode: PostalCode;
-}
-
 export interface Name {
   common: string;
   official: string;
@@ -99,6 +63,42 @@ export interface CapitalInfo {
 export interface PostalCode {
   format: string;
   regex: string;
+}
+
+export interface Country {
+  name: Name;
+  tld: string;
+  cca2: string;
+  ccn3: string;
+  cca3: string;
+  independent: boolean;
+  status: string;
+  unMember: boolean;
+  currencies: Currency;
+  idd: Idd;
+  capital: string[];
+  altSpellings: string[];
+  region: string;
+  subregion: string;
+  languages: {
+    [key: string]: string;
+  };
+  translations: Translation;
+  latlng: number[];
+  landlocked: boolean;
+  area: number;
+  denonyms: Denonym;
+  flag: [key: string];
+  maps: Maps;
+  population: number;
+  car: Car;
+  timezones: string[];
+  continents: string[];
+  flags: Flags;
+  coatOfArms: CoatOfArms;
+  startOfWeek: string;
+  capitalInfo: CapitalInfo;
+  postalCode: PostalCode;
 }
 
 export type Countries = Country[];

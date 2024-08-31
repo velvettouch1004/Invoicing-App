@@ -1,7 +1,7 @@
-import { formatCurrency } from "@/lib/functions/formatCurrency";
-import Status from "../Status";
-import { InvoiceData } from "@/lib/types/data";
-import { format } from "date-fns";
+import { formatCurrency } from '@/lib/functions/formatCurrency';
+import { InvoiceData } from '@/lib/types/data';
+import { format } from 'date-fns';
+import Status from '../Status';
 
 export default function InvoiceItem({
   invoiceDate,
@@ -11,12 +11,12 @@ export default function InvoiceItem({
   total,
   status,
   shouldDisplayInvoice,
-}: InvoiceData & { shouldDisplayInvoice?: (status: string) => boolean }) {
-  if (!shouldDisplayInvoice || shouldDisplayInvoice(status))
+}: InvoiceData & { shouldDisplayInvoice?: (item: string) => boolean }) {
+  if (!shouldDisplayInvoice || shouldDisplayInvoice(status)) {
     return (
       <div className="grid grid-cols-[repeat(auto-fit,minmax(150px,1fr))] items-center justify-between">
         <p className="whitespace-nowrap overflow-hidden text-ellipsis">
-          {format(invoiceDate, "PPP")}
+          {format(invoiceDate, 'PPP')}
         </p>
         <p>{paymentDue}</p>
         <p>{businessName}</p>
@@ -25,4 +25,5 @@ export default function InvoiceItem({
         <Status status={status} />
       </div>
     );
+  }
 }

@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import {
   Select,
@@ -7,9 +7,10 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
-import { status } from "@/lib/data";
-import { FilterProps } from "@/lib/types/props";
+} from '@/components/ui/select';
+import { status } from '@/lib/data';
+import { FilterProps } from '@/lib/types/props';
+import React from 'react';
 
 export default function FilterBy({ onFilterChange }: FilterProps) {
   function handleFilterChange(selectedValue: string) {
@@ -17,8 +18,8 @@ export default function FilterBy({ onFilterChange }: FilterProps) {
   }
 
   return (
-    <>
-      <Select onValueChange={handleFilterChange}>
+    <React.Fragment>
+      <Select onValueChange={() => handleFilterChange}>
         <SelectTrigger
           className="w-[125px]"
           aria-label="open filter by status options"
@@ -27,10 +28,10 @@ export default function FilterBy({ onFilterChange }: FilterProps) {
         </SelectTrigger>
         <SelectContent>
           <SelectGroup className="capitalize">
-            {status.map((status) => (
+            {status.map((item) => (
               <SelectItem
-                key={status}
-                value={status}
+                key={item}
+                value={item}
                 className="cursor-pointer"
               >
                 <p className="capitalize">{status}</p>
@@ -39,6 +40,6 @@ export default function FilterBy({ onFilterChange }: FilterProps) {
           </SelectGroup>
         </SelectContent>
       </Select>
-    </>
+    </React.Fragment>
   );
 }

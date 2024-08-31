@@ -1,6 +1,6 @@
-import { InvoiceData, StatusValue } from "./data";
-import * as z from "zod";
-import { InvoiceFormSchema } from "../schemas";
+import * as z from 'zod';
+import { InvoiceData, StatusValue } from './data';
+import { InvoiceFormSchema } from '../schemas';
 
 export interface DashboardProps {
   invoices: InvoiceData[];

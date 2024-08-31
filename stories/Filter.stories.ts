@@ -1,13 +1,13 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import FilterBy from "@/components/Filter";
+import type { Meta, StoryObj } from '@storybook/react';
+import FilterBy from '@/components/Filter';
 
 const meta = {
-  title: "Invoicing App/Filter Button",
   component: FilterBy,
-  tags: ["autodocs"],
   parameters: {
-    layout: "centered",
+    layout: 'centered',
   },
+  tags: ['autodocs'],
+  title: 'Invoicing App/Filter Button',
 } satisfies Meta<typeof FilterBy>;
 
 export default meta;

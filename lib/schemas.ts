@@ -1,91 +1,93 @@
-import * as z from "zod";
-import { Schema } from "mongoose";
+import * as z from 'zod';
+import { Schema } from 'mongoose';
 
 export const InvoiceFormSchema = z.object({
-  businessName: z
-    .string()
-    .min(3, { message: "Business name must be at least 3 characters" }),
-  businessEmail: z.string().email(),
   businessAddress: z
     .string()
-    .min(3, { message: "Address must be at least 3 characters" }),
+    .min(3, { message: 'Address must be at least 3 characters' }),
   businessCity: z
     .string()
-    .min(3, { message: "City must be at least 3 characters" }),
-  businessZip: z
-    .string()
-    .min(3, { message: "Postal Code must be at least 3 characters" }),
+    .min(3, { message: 'City must be at least 3 characters' }),
   businessCountry: z
     .string()
-    .min(3, { message: "Country must be at least 3 characters" }),
-  clientName: z
+    .min(3, { message: 'Country must be at least 3 characters' }),
+  businessEmail: z.string().email(),
+  businessName: z
     .string()
-    .min(3, { message: "Name must be at least 3 characters" }),
-  clientEmail: z.string().email(),
+    .min(3, { message: 'Business name must be at least 3 characters' }),
+  businessZip: z
+    .string()
+    .min(3, { message: 'Postal Code must be at least 3 characters' }),
   clientAddress: z
     .string()
-    .min(3, { message: "Address must be at least 3 characters" }),
+    .min(3, { message: 'Address must be at least 3 characters' }),
   clientCity: z.string().min(3),
-  clientZip: z
-    .string()
-    .min(3, { message: "Postal Code must be at least 3 characters" }),
   clientCountry: z
     .string()
-    .min(3, { message: "Country must be at least 3 characters" }),
-  invoiceDate: z.date({ required_error: "Invoice date is required" }),
-  paymentTerms: z.string({
-    required_error: "Please select the payment terms.",
-  }),
-  status: z.string(),
-  paymentDue: z.string(),
-  projectName: z
+    .min(3, { message: 'Country must be at least 3 characters' }),
+  clientEmail: z.string().email(),
+  clientName: z
     .string()
-    .min(3, { message: "Project name must be at least 3 characters" }),
-
+    .min(3, { message: 'Name must be at least 3 characters' }),
+  clientZip: z
+    .string()
+    .min(3, { message: 'Postal Code must be at least 3 characters' }),
   deliverables: z.array(
     z.object({
-      id: z.string(),
       deliverable: z
         .string()
-        .min(3, { message: "Deliverable must be at least 3 characters" }),
-      quantity: z.number(),
+        .min(3, { message: 'Deliverable must be at least 3 characters' }),
+      id: z.string(),
       price: z.number(),
-    })
+      quantity: z.number(),
+    }),
   ),
+  invoiceDate: z.date({ required_error: 'Invoice date is required' }),
+  paymentDue: z.string(),
+  paymentTerms: z.string({
+    required_error: 'Please select the payment terms.',
+  }),
+  projectName: z
+    .string()
+    .min(3, { message: 'Project name must be at least 3 characters' }),
+
+  status: z.string(),
 });
 
 export const mongooseInvoiceSchema = new Schema({
-  businessName: { type: String, required: true, minlength: 3 },
-  businessAddress: { type: String, required: true, minlength: 3 },
+  businessAddress: { minlength: 3, required: true, type: String },
+  businessCity: { minlength: 3, required: true, type: String },
+  businessCountry: { minlength: 3, required: true, type: String },
   businessEmail: {
-    type: String,
+    // eslint-disable-next-line no-useless-escape
+    match: [/.+\@.+\..+/, 'Please enter a valid email address'],
     required: true,
-    match: [/.+\@.+\..+/, "Please enter a valid email address"],
+    type: String,
   },
-  businessCity: { type: String, required: true, minlength: 3 },
-  businessZip: { type: String, required: true, minlength: 3 },
-  businessCountry: { type: String, required: true, minlength: 3 },
-  clientName: { type: String, required: true, minlength: 3 },
+  businessName: { minlength: 3, required: true, type: String },
+  businessZip: { minlength: 3, required: true, type: String },
+  clientAddress: { minlength: 3, required: true, type: String },
+  clientCity: { minlength: 3, required: true, type: String },
+  clientCountry: { minlength: 3, required: true, type: String },
   clientEmail: {
-    type: String,
+    // eslint-disable-next-line no-useless-escape
+    match: [/.+\@.+\..+/, 'Please enter a valid email address'],
     required: true,
-    match: [/.+\@.+\..+/, "Please enter a valid email address"],
+    type: String,
   },
-  clientAddress: { type: String, required: true, minlength: 3 },
-  clientCity: { type: String, required: true, minlength: 3 },
-  clientZip: { type: String, required: true, minlength: 3 },
-  clientCountry: { type: String, required: true, minlength: 3 },
-  invoiceDate: { type: Date, required: true },
-  paymentTerms: { type: String, required: true },
-  status: { type: String, required: true },
-  paymentDue: { type: String, required: true },
-  projectName: { type: String, required: true, minlength: 3 },
+  clientName: { minlength: 3, required: true, type: String },
+  clientZip: { minlength: 3, required: true, type: String },
   deliverables: [
     {
-      id: { type: String, required: true },
-      deliverable: { type: String, required: true, minlength: 3 },
-      quantity: { type: Number, required: true, min: 1 },
-      price: { type: Number, required: true },
+      deliverable: { minlength: 3, required: true, type: String },
+      id: { required: true, type: String },
+      price: { required: true, type: Number },
+      quantity: { min: 1, required: true, type: Number },
     },
   ],
+  invoiceDate: { required: true, type: Date },
+  paymentDue: { required: true, type: String },
+  paymentTerms: { required: true, type: String },
+  projectName: { minlength: 3, required: true, type: String },
+  status: { required: true, type: String },
 });

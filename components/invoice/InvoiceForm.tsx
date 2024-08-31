@@ -1,11 +1,11 @@
-"use client";
+'use client';
 
-import * as z from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { addDays, format } from "date-fns";
-import { CalendarIcon } from "lucide-react";
-import { cn } from "@/lib/utils";
+import * as z from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
+import { addDays, format } from 'date-fns';
+import { CalendarIcon } from 'lucide-react';
+import { cn } from '@/lib/utils';
 import {
   Form,
   FormControl,
@@ -13,43 +13,42 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
+} from '@/components/ui/form';
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/components/ui/popover";
+} from '@/components/ui/popover';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
-import { Button } from "../ui/button";
-import { Input } from "../ui/input";
-import { Calendar } from "../ui/calendar";
-import { useCallback, useEffect, useMemo, useState } from "react";
-import { v4 as uuidv4 } from "uuid";
-import { ScrollArea } from "../ui/scroll-area";
-import useSWR from "swr";
-import { fetcher } from "@/lib/functions/fetcher";
-import { InvoiceFormSchema } from "@/lib/schemas";
-import { netPaymentData, status } from "@/lib/data";
-import { Deliverable } from "@/lib/types/data";
-import { InvoiceFormProps } from "@/lib/types/props";
-import { Countries } from "@/lib/types/countries";
-import { formatCurrency } from "@/lib/functions/formatCurrency";
-import Icon from "../Icon";
+} from '@/components/ui/select';
+import { useCallback, useEffect, useMemo, useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
+import useSWR from 'swr';
+import { fetcher } from '@/lib/functions/fetcher';
+import { InvoiceFormSchema } from '@/lib/schemas';
+import { netPaymentData, status } from '@/lib/data';
+import { Deliverable } from '@/lib/types/data';
+import { InvoiceFormProps } from '@/lib/types/props';
+import { Countries } from '@/lib/types/countries';
+import { formatCurrency } from '@/lib/functions/formatCurrency';
+import { ScrollArea } from '../ui/scroll-area';
+import { Calendar } from '../ui/calendar';
+import { Input } from '../ui/input';
+import { Button } from '../ui/button';
+import Icon from '../Icon';
 
 function calculateDueDate(invoiceDate: Date, paymentTerms: string): Date {
-  const daysToAdd =
-    {
-      "1 Day": 1,
-      "7 Days": 7,
-      "14 Days": 14,
-      "30 Days": 30,
-    }[paymentTerms] || 0;
+  const daysToAdd = {
+    '1 Day': 1,
+    '14 Days': 14,
+    '30 Days': 30,
+    '7 Days': 7,
+  }[paymentTerms] || 0;
 
   return addDays(invoiceDate, daysToAdd);
 }
@@ -61,53 +60,51 @@ export function InvoiceForm({
 }: InvoiceFormProps) {
   const [dueDate, setDueDate] = useState<Date | null>(null);
   const [deliverables, setDeliverables] = useState([
-    { id: uuidv4(), deliverable: "", quantity: 0, price: 0 },
+    { deliverable: '', id: uuidv4(), price: 0, quantity: 0 },
   ]);
 
-  const calculateTotal = useCallback(() => {
-    return deliverables.reduce(
-      (acc, curr) => acc + curr.quantity * curr.price,
-      0
-    );
-  }, [deliverables]);
+  const calculateTotal = useCallback(() => deliverables.reduce(
+    (acc, curr) => acc + curr.quantity * curr.price,
+    0,
+  ), [deliverables]);
 
   const [total, setTotal] = useState(calculateTotal());
 
   const form = useForm<z.infer<typeof InvoiceFormSchema>>({
-    resolver: zodResolver(InvoiceFormSchema),
-    mode: "onChange",
     defaultValues: initialValues || {
-      businessName: "",
-      businessEmail: "",
-      businessAddress: "",
-      businessCity: "",
-      businessZip: "",
-      businessCountry: "",
-      clientName: "",
-      clientEmail: "",
-      clientAddress: "",
-      clientCity: "",
-      clientZip: "",
-      clientCountry: "",
-      paymentTerms: "",
-      paymentDue: "",
-      status: "",
-      projectName: "",
-      deliverables: [{ id: uuidv4(), deliverable: "", quantity: 0, price: 0 }],
+      businessAddress: '',
+      businessCity: '',
+      businessCountry: '',
+      businessEmail: '',
+      businessName: '',
+      businessZip: '',
+      clientAddress: '',
+      clientCity: '',
+      clientCountry: '',
+      clientEmail: '',
+      clientName: '',
+      clientZip: '',
+      deliverables: [{ deliverable: '', id: uuidv4(), price: 0, quantity: 0 }],
+      paymentDue: '',
+      paymentTerms: '',
+      projectName: '',
+      status: '',
     },
+    mode: 'onChange',
+    resolver: zodResolver(InvoiceFormSchema),
   });
 
-  const invoiceDate = form.watch("invoiceDate");
-  const paymentTerms = form.watch("paymentTerms");
+  const invoiceDate = form.watch('invoiceDate');
+  const paymentTerms = form.watch('paymentTerms');
 
   useEffect(() => {
     if (invoiceDate && paymentTerms) {
       const calculatedDueDate = calculateDueDate(
         new Date(invoiceDate),
-        paymentTerms
+        paymentTerms,
       );
       setDueDate(calculatedDueDate);
-      form.setValue("paymentDue", format(calculatedDueDate, "PPP"));
+      form.setValue('paymentDue', format(calculatedDueDate, 'PPP'));
     }
   }, [invoiceDate, paymentTerms, form]);
 
@@ -118,21 +115,16 @@ export function InvoiceForm({
   const {
     data: countries,
     error,
-    isLoading,
-  } = useSWR<Countries>("https://restcountries.com/v3.1/all", fetcher);
+  } = useSWR<Countries>('https://restcountries.com/v3.1/all', fetcher);
 
-  const sortedCountries = useMemo(() => {
-    return countries?.sort((a, b) =>
-      a.name.common.localeCompare(b.name.common)
-    );
-  }, [countries]);
+  const sortedCountries = useMemo(() => countries?.sort((a, b) => a.name.common.localeCompare(b.name.common)), [countries]);
 
   function handleAddNewDeliverable() {
     const newDeliverable = {
+      deliverable: '',
       id: uuidv4(),
-      deliverable: "",
-      quantity: 0,
       price: 0,
+      quantity: 0,
     };
     setDeliverables([...deliverables, newDeliverable]);
   }
@@ -145,20 +137,18 @@ export function InvoiceForm({
   function handleUpdateDeliverable(
     id: string,
     field: keyof Deliverable,
-    value: string | number
+    value: string | number,
   ) {
-    const parsedValue = typeof value === "number" ? value : parseFloat(value);
+    const parsedValue = typeof value === 'number' ? value : parseFloat(value);
     setDeliverables(
-      deliverables.map((deliverable) =>
-        deliverable.id === id
-          ? { ...deliverable, [field]: parsedValue }
-          : deliverable
-      )
+      deliverables.map((deliverable) => (deliverable.id === id
+        ? { ...deliverable, [field]: parsedValue }
+        : deliverable)),
     );
     setTotal(calculateTotal());
     form.setValue(
       `deliverables.${deliverables.findIndex((d) => d.id === id)}.${field}`,
-      parsedValue
+      parsedValue,
     );
   }
 
@@ -202,7 +192,10 @@ export function InvoiceForm({
                         Business Email
                       </FormLabel>
                       <FormControl>
-                        <Input placeholder="generic@example.com" {...field} />
+                        <Input
+                          placeholder="generic@example.com"
+                          {...field}
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -235,7 +228,10 @@ export function InvoiceForm({
                       <FormItem>
                         <FormLabel className="form-label">City</FormLabel>
                         <FormControl>
-                          <Input placeholder="London" {...field} />
+                          <Input
+                            placeholder="London"
+                            {...field}
+                          />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -275,15 +271,14 @@ export function InvoiceForm({
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
+                          { /* eslint-disable-next-line no-nested-ternary */}
                           {error ? (
                             <p>Error getting countries</p>
                           ) : !countries ? (
                             <p>Loading countries...</p>
                           ) : (
                             countries
-                              .sort((a, b) =>
-                                a.name.common.localeCompare(b.name.common)
-                              )
+                              .sort((a, b) => a.name.common.localeCompare(b.name.common))
                               .map((country) => (
                                 <SelectItem
                                   className="cursor-pointer"
@@ -331,7 +326,10 @@ export function InvoiceForm({
                         Client&apos;s Email
                       </FormLabel>
                       <FormControl>
-                        <Input placeholder="alexgrim@example.com" {...field} />
+                        <Input
+                          placeholder="alexgrim@example.com"
+                          {...field}
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -346,7 +344,10 @@ export function InvoiceForm({
                         Client&apos;s Address
                       </FormLabel>
                       <FormControl>
-                        <Input placeholder="19 Union Terrace" {...field} />
+                        <Input
+                          placeholder="19 Union Terrace"
+                          {...field}
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -360,7 +361,10 @@ export function InvoiceForm({
                       <FormItem>
                         <FormLabel className="form-label">City</FormLabel>
                         <FormControl>
-                          <Input placeholder="Bath" {...field} />
+                          <Input
+                            placeholder="Bath"
+                            {...field}
+                          />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -402,6 +406,7 @@ export function InvoiceForm({
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
+                          { /* eslint-disable-next-line no-nested-ternary */}
                           {error ? (
                             <p>Error getting countries</p>
                           ) : !sortedCountries ? (
@@ -442,11 +447,11 @@ export function InvoiceForm({
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
-                        {status.map((status) => (
+                        {status.map((item) => (
                           <SelectItem
                             className="cursor-pointer capitalize"
-                            key={status}
-                            value={status}
+                            key={item}
+                            value={item}
                           >
                             {status}
                           </SelectItem>
@@ -469,12 +474,12 @@ export function InvoiceForm({
                           <FormControl>
                             <Button
                               className={cn(
-                                "pl-3 text-left font-normal bg-white hover:bg-white border-dustStorm border text-blackOlive capitalize w-full",
-                                !field.value && "text-muted-foreground"
+                                'pl-3 text-left font-normal bg-white hover:bg-white border-dustStorm border text-blackOlive capitalize w-full',
+                                !field.value && 'text-muted-foreground',
                               )}
                             >
                               {field.value ? (
-                                format(field.value, "PPP")
+                                format(field.value, 'PPP')
                               ) : (
                                 <span>Pick a date</span>
                               )}
@@ -482,14 +487,15 @@ export function InvoiceForm({
                             </Button>
                           </FormControl>
                         </PopoverTrigger>
-                        <PopoverContent className="w-auto p-0" align="start">
+                        <PopoverContent
+                          className="w-auto p-0"
+                          align="start"
+                        >
                           <Calendar
                             mode="single"
                             selected={field.value}
                             onSelect={field.onChange}
-                            disabled={(date) =>
-                              date > new Date() || date < new Date("1900-01-01")
-                            }
+                            disabled={(date) => date > new Date() || date < new Date('1900-01-01')}
                             initialFocus
                           />
                         </PopoverContent>
@@ -517,7 +523,10 @@ export function InvoiceForm({
                         </FormControl>
                         <SelectContent>
                           {netPaymentData.map((option) => (
-                            <SelectItem key={option} value={option}>
+                            <SelectItem
+                              key={option}
+                              value={option}
+                            >
                               {`Net ${option}`}
                             </SelectItem>
                           ))}
@@ -538,7 +547,7 @@ export function InvoiceForm({
                       <FormControl>
                         <Input
                           className="pointer-events-none bg-antiFlashWhite"
-                          value={dueDate ? format(dueDate, "PPP") : ""}
+                          value={dueDate ? format(dueDate, 'PPP') : ''}
                           readOnly
                         />
                       </FormControl>
@@ -553,7 +562,10 @@ export function InvoiceForm({
                   <FormItem>
                     <FormLabel className="form-label">Project Name</FormLabel>
                     <FormControl>
-                      <Input placeholder="Create business cards" {...field} />
+                      <Input
+                        placeholder="Create business cards"
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -597,13 +609,11 @@ export function InvoiceForm({
                                 <Input
                                   type="number"
                                   {...field}
-                                  onChange={(e) =>
-                                    handleUpdateDeliverable(
-                                      deliverable.id,
-                                      "quantity",
-                                      e.target.value
-                                    )
-                                  }
+                                  onChange={(e) => handleUpdateDeliverable(
+                                    deliverable.id,
+                                    'quantity',
+                                    e.target.value,
+                                  )}
                                 />
                               </FormControl>
                               <FormMessage />
@@ -622,13 +632,11 @@ export function InvoiceForm({
                                 <Input
                                   type="number"
                                   {...field}
-                                  onChange={(e) =>
-                                    handleUpdateDeliverable(
-                                      deliverable.id,
-                                      "price",
-                                      e.target.value
-                                    )
-                                  }
+                                  onChange={(e) => handleUpdateDeliverable(
+                                    deliverable.id,
+                                    'price',
+                                    e.target.value,
+                                  )}
                                 />
                               </FormControl>
                               <FormMessage />
@@ -640,17 +648,15 @@ export function InvoiceForm({
                         <p>{formatCurrency(total)}</p>
                         <Button
                           className="p-0 bg-transparent hover:bg-transparent"
-                          onClick={() =>
-                            handleDeleteDeliverable(deliverable.id)
-                          }
+                          onClick={() => handleDeleteDeliverable(deliverable.id)}
                         >
                           <Icon
                             svgProps={{
-                              width: "13",
-                              height: "16",
-                              viewBox: "0 0 13 16",
-                              fill: "none",
-                              xmlns: "http://www.w3.org/2000/svg",
+                              fill: 'none',
+                              height: '16',
+                              viewBox: '0 0 13 16',
+                              width: '13',
+                              xmlns: 'http://www.w3.org/2000/svg',
                             }}
                           >
                             <path
@@ -666,15 +672,21 @@ export function InvoiceForm({
                     </div>
                   </div>
                 ))}
-                <Button className="w-full" onClick={handleAddNewDeliverable}>
+                <Button
+                  className="w-full"
+                  onClick={() => handleAddNewDeliverable}
+                >
                   + Add New Item
                 </Button>
               </div>
               <div className="flex justify-between">
                 <Button>Discard</Button>
                 <div className="flex gap-4">
-                  <Button type="submit" disabled={!isValid}>
-                    {isEditing ? "Save" : "Send"}
+                  <Button
+                    type="submit"
+                    disabled={!isValid}
+                  >
+                    {isEditing ? 'Save' : 'Send'}
                   </Button>
                 </div>
               </div>

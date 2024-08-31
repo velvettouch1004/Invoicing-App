@@ -1,40 +1,40 @@
-"use client";
+'use client';
 
-import * as z from "zod";
+import * as z from 'zod';
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTrigger,
-} from "@/components/ui/dialog";
-import { Button } from "../ui/button";
-import { toast } from "sonner";
-import { InvoiceForm } from "./InvoiceForm";
-import { InvoiceFormSchema } from "@/lib/schemas";
+} from '@/components/ui/dialog';
+import { toast } from 'sonner';
+import { InvoiceFormSchema } from '@/lib/schemas';
+import { Button } from '../ui/button';
+import { InvoiceForm } from './InvoiceForm';
 
 export default function AddInvoice() {
   function onSubmit(data: z.infer<typeof InvoiceFormSchema>) {
-    fetch("/api/invoices", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+    fetch('/api/invoices', {
       body: JSON.stringify(data),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      method: 'POST',
     })
       .then((response) => {
         if (!response.ok) {
-          throw new Error("Failed to submit invoice");
+          throw new Error('Failed to submit invoice');
         }
         return response.json();
       })
-      .then((data) => {
-        console.log(data);
-        toast("Invoice saved");
+      .then(() => {
+        // console.log(data);
+        toast('Invoice saved');
       })
       .catch((error) => {
         console.error(error);
-        toast("Error saving invoice");
-        console.log(data);
+        toast('Error saving invoice');
+        // console.log(data);
       });
   }
 
@@ -48,7 +48,10 @@ export default function AddInvoice() {
           <h2>Add Invoice</h2>
           <div className="border border-dustStorm" />
         </DialogHeader>
-        <InvoiceForm onSubmit={onSubmit} isEditing={false} />
+        <InvoiceForm
+          onSubmit={() => onSubmit}
+          isEditing={false}
+        />
       </DialogContent>
     </Dialog>
   );

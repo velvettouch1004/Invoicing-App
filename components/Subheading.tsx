@@ -1,4 +1,4 @@
-import Separator from "./Separator";
+import Separator from './Separator';
 
 export default function Subheading({
   children,
