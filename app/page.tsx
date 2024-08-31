@@ -4,6 +4,18 @@ import Dashboard from '@/components/Dashboard';
 
 export const metadata: Metadata = {
   description: 'Invoicing app',
+  icons: {
+    icon: [
+      {
+        media: '(prefers-color-scheme: light)',
+        url: '/icons/gem-dark.svg',
+      },
+      {
+        media: '(prefers-color-scheme: dark)',
+        url: '/icons/gem-light.svg',
+      },
+    ],
+  },
   title: 'Invoicing App',
 };
 
