@@ -1,5 +1,5 @@
+import Header from '@/components/Header';
 import './globals.css';
-import Navbar from '@/components/Nav';
 import { Toaster } from '@/components/ui/sonner';
 // eslint-disable-next-line camelcase
 import { EB_Garamond, Inter } from 'next/font/google';
@@ -26,8 +26,8 @@ export default function RootLayout({
       lang="en"
       className={`${eBGaramond.className} ${inter.className}`}
     >
-      <body className="flex flex-col max-w-[1200px] w-full mx-auto pb-12">
-        <Navbar />
+      <body className="flex flex-col max-w-[1920px] w-full mx-auto p-4">
+        <Header />
         <main className="flex flex-1">{children}</main>
         <Toaster />
       </body>
