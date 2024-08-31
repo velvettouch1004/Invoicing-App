@@ -2,17 +2,19 @@ import Header from '@/components/Header';
 import './globals.css';
 import { Toaster } from '@/components/ui/sonner';
 // eslint-disable-next-line camelcase
-import { EB_Garamond, Inter } from 'next/font/google';
+import { Bodoni_Moda, Inter } from 'next/font/google';
 
-const eBGaramond = EB_Garamond({
+const bodoniModa = Bodoni_Moda({
   display: 'swap',
   subsets: ['latin'],
+  variable: '--font-bodoniModa',
   weight: '400',
 });
 
 const inter = Inter({
   display: 'swap',
   subsets: ['latin'],
+  variable: '--font-inter',
   weight: '400',
 });
 
@@ -24,7 +26,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${eBGaramond.className} ${inter.className}`}
+      className={`${bodoniModa.variable} ${inter.variable}`}
     >
       <body className="flex flex-col max-w-[1920px] w-full mx-auto p-4">
         <Header />

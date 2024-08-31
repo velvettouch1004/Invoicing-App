@@ -26,7 +26,8 @@ const config = {
     },
     extend: {
       fontFamily: {
-        sans: ['var(--font-geist-sans)'],
+        sans: ['var(--font-inter)'],
+        serif: ['var(--font-bodoniModa)'],
       },
       keyframes: {
         'accordion-down': {

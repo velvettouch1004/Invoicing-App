@@ -10,7 +10,7 @@
     font-style: normal;
     font-weight: 500;
     line-height: normal;
-    @apply font-sans;
+    @apply font-serif;
     @apply uppercase;
   }
 
