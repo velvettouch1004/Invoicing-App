@@ -4,6 +4,19 @@ import { InvoiceData } from '@/lib/types/data';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
+  description: 'Invoice details',
+  icons: {
+    icon: [
+      {
+        media: '(prefers-color-scheme: light)',
+        url: '/icons/gem-dark.svg',
+      },
+      {
+        media: '(prefers-color-scheme: dark)',
+        url: '/icons/gem-light.svg',
+      },
+    ],
+  },
   title: 'Invoice Details',
 };
 
