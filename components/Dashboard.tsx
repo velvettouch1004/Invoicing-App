@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { DashboardProps } from '@/lib/types/props';
-import { columns } from '@/app/payments/columns';
+import { columns } from '@/components/payments/columns';
 import DataTable from './ui/data-table';
 
 export default function Dashboard({ invoices }: DashboardProps) {
