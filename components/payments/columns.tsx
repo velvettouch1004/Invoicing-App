@@ -13,6 +13,7 @@ import {
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { MoreHorizontal } from 'lucide-react';
+import { formatCurrency } from '@/lib/functions/formatCurrency';
 
 export const columns: ColumnDef<InvoiceData>[] = [
   {
@@ -29,6 +30,10 @@ export const columns: ColumnDef<InvoiceData>[] = [
   },
   {
     accessorKey: 'billed',
+    cell: (cell: CellContext<InvoiceData, unknown>) => {
+      const { billed } = cell.row.original;
+      return formatCurrency(billed);
+    },
     header: 'Billed',
   },
   {

@@ -46,6 +46,7 @@ export interface Item {
 
 export interface InvoiceData {
   _id: string;
+  billed: number;
   businessName: string;
   businessEmail: string;
   businessAddress: string;

@@ -25,7 +25,7 @@ export default async function Page() {
 
   return (
     <div className="flex flex-col w-full">
-      <div className="flex flex-col sm:flex-row justify-between items-end border-b border-b-[#768081] pb-2">
+      <div className="flex flex-col sm:flex-row justify-between items-end border-b border-slate-200 pb-2">
         <h1>Invoices</h1>
         <p className="mt-4">
           Total Invoices:

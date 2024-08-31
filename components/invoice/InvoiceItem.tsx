@@ -15,7 +15,7 @@ export default function InvoiceItem({
   if (!shouldDisplayInvoice || shouldDisplayInvoice(status)) {
     return (
       <div className="grid grid-cols-[repeat(auto-fit,minmax(150px,1fr))] items-center justify-between">
-        <p className="whitespace-nowrap overflow-hidden text-ellipsis">
+        <p className="whitespace-nowrap text-ellipsis">
           {format(invoiceDate, 'PPP')}
         </p>
         <p>{paymentDue}</p>

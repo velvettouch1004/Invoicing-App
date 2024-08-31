@@ -9,6 +9,7 @@ import {
 } from '@/components/ui/dialog';
 import { toast } from 'sonner';
 import { InvoiceFormSchema } from '@/lib/schemas';
+import { Plus } from 'lucide-react';
 import { Button } from '../ui/button';
 import { InvoiceForm } from './InvoiceForm';
 
@@ -41,7 +42,12 @@ export default function AddInvoice() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button>Add Invoice</Button>
+        <Button
+          title="Add Invoice"
+          className="w-10 h-10 rounded-full p-0"
+        >
+          <Plus />
+        </Button>
       </DialogTrigger>
       <DialogContent className="max-w-[850px]">
         <DialogHeader>

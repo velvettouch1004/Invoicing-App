@@ -2,6 +2,9 @@ import * as z from 'zod';
 import { Schema } from 'mongoose';
 
 export const InvoiceFormSchema = z.object({
+  billed: z
+    .number()
+    .min(1, { message: 'Billed amount must be a positive number' }),
   businessAddress: z
     .string()
     .min(3, { message: 'Address must be at least 3 characters' }),
@@ -55,6 +58,7 @@ export const InvoiceFormSchema = z.object({
 });
 
 export const mongooseInvoiceSchema = new Schema({
+  billed: { required: true, type: Number },
   businessAddress: { minlength: 3, required: true, type: String },
   businessCity: { minlength: 3, required: true, type: String },
   businessCountry: { minlength: 3, required: true, type: String },
