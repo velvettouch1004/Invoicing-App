@@ -30,7 +30,7 @@ export default function SortInvoices() {
   return (
     <Select>
       <SelectTrigger
-        className="w-[150px]"
+        className="w-[150px] border-none"
         aria-label="open sort by fields"
       >
         <SelectValue placeholder="Sort By" />

@@ -38,8 +38,6 @@ export default function Dashboard({ invoices }: DashboardProps) {
     value: groupedInvoices[status as StatusValue].length,
   }));
 
-  console.log(transformedData);
-
   const totalBilled = filteredInvoices.reduce((acc, invoice) => acc + invoice.billed, 0);
 
   const totalCancelled = filteredInvoices.reduce((acc, invoice) => acc + (invoice.status === 'cancelled' ? invoice.billed : 0), 0);
@@ -68,7 +66,7 @@ export default function Dashboard({ invoices }: DashboardProps) {
           <Card className="flex flex-col md:flex-row align-center">
             <div>
               <h2 className="sr-only">Total Billed (To date)</h2>
-              <CardHeader className="text-center pb-0"><h2 className="">{formatCurrency(totalBilled)}</h2></CardHeader>
+              <CardHeader className="text-center  pb-0"><h2 className="font-thin">{formatCurrency(totalBilled)}</h2></CardHeader>
               <CardHeader className="text-center">
                 Total Billed
                 <br />
@@ -77,12 +75,12 @@ export default function Dashboard({ invoices }: DashboardProps) {
             </div>
             <div>
               <h2 className="sr-only">Total Cancelled</h2>
-              <CardHeader className="text-center pb-0"><h2 className="">{formatCurrency(totalCancelled)}</h2></CardHeader>
+              <CardHeader className="text-center pb-0"><h2 className="font-thin">{formatCurrency(totalCancelled)}</h2></CardHeader>
               <CardHeader className="text-center">Total Cancelled</CardHeader>
             </div>
             <div>
               <h2 className="sr-only">Total Overdue</h2>
-              <CardHeader className="text-center pb-0"><h2 className="">{formatCurrency(totalOverdue)}</h2></CardHeader>
+              <CardHeader className="text-center pb-0"><h2 className="font-thin">{formatCurrency(totalOverdue)}</h2></CardHeader>
               <CardHeader className="text-center">Total Overdue</CardHeader>
             </div>
           </Card>

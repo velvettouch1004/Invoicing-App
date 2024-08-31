@@ -21,7 +21,7 @@ export default function FilterBy({ onFilterChange }: FilterProps) {
     <React.Fragment>
       <Select onValueChange={() => handleFilterChange}>
         <SelectTrigger
-          className="w-[125px]"
+          className="w-[125px] border-none"
           aria-label="open filter by status options"
         >
           <SelectValue placeholder="Filter By" />
