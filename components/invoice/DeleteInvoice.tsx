@@ -12,6 +12,7 @@ import {
 } from '@/components/ui/alert-dialog';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
+import { revalidatePath } from 'next/cache';
 import { Button } from '../ui/button';
 
 export interface DeleteInvoiceProps {
@@ -32,6 +33,7 @@ export default function DeleteInvoice({
       if (res.ok) {
         toast('Invoice deleted');
         router.push('/');
+        revalidatePath('/');
       } else {
         toast('Failed to delete invoice');
       }
