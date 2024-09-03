@@ -8,7 +8,7 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog';
 import { toast } from 'sonner';
-import { InvoiceFormSchema } from '@/lib/schemas';
+import { InvoiceFormSchema } from '@/app/api/graphql/models/Invoice';
 import { useEffect, useState } from 'react';
 import { InvoiceData } from '@/lib/types/data';
 import { InvoiceForm } from './InvoiceForm';

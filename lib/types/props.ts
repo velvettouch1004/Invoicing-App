@@ -1,6 +1,6 @@
 import * as z from 'zod';
+import { InvoiceFormSchema } from '@/app/api/graphql/models/Invoice';
 import { InvoiceData, StatusValue } from './data';
-import { InvoiceFormSchema } from '../schemas';
 
 export interface DashboardProps {
   invoices: InvoiceData[];

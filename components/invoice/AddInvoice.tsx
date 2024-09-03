@@ -8,8 +8,8 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog';
 import { toast } from 'sonner';
-import { InvoiceFormSchema } from '@/lib/schemas';
 import { Plus } from 'lucide-react';
+import { InvoiceFormSchema } from '@/app/api/graphql/models/Invoice';
 import { Button } from '../ui/button';
 import { InvoiceForm } from './InvoiceForm';
 

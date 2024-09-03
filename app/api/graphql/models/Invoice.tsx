@@ -1,5 +1,5 @@
 import * as z from 'zod';
-import { Schema } from 'mongoose';
+import mongoose, { Schema } from 'mongoose';
 
 export const InvoiceFormSchema = z.object({
   billed: z
@@ -57,7 +57,7 @@ export const InvoiceFormSchema = z.object({
   status: z.string(),
 });
 
-export const mongooseInvoiceSchema = new Schema({
+export const MongooseInvoiceSchema = new Schema({
   billed: { required: true, type: Number },
   businessAddress: { minlength: 3, required: true, type: String },
   businessCity: { minlength: 3, required: true, type: String },
@@ -95,3 +95,5 @@ export const mongooseInvoiceSchema = new Schema({
   projectName: { minlength: 3, required: true, type: String },
   status: { required: true, type: String },
 });
+
+export default mongoose.models.InvoiceModel || mongoose.model('InvoiceModel', MongooseInvoiceSchema);

@@ -1,4 +1,4 @@
-import clientPromise from './mongodb';
+/* import clientPromise from './mongodb';
 
 export default async function getMongoDB() {
   let isConnected = false;
@@ -12,3 +12,4 @@ export default async function getMongoDB() {
 
   return isConnected;
 }
+ */
