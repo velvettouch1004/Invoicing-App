@@ -4,7 +4,7 @@
 
 </div>
 
-A CRUD app which allows the user to create, review and update invoices, filter and toggle between light and dark mode. Built using Next.js, TypeScript, MongoDB, Tailwind CSS, Shadcn, Storybook, React Hook Form, Zod, Playwright and Husky. This repo is currently under development.
+A full-stack application which allows the user to create, delete and update invoices, see data representations via charts and filter and toggle the data. Built using Next.js, TypeScript, MongoDB, Mongoose, GraphQL, Tailwind CSS, Shadcn, Storybook, React Hook Form, Zod, Playwright and Husky. This repo is currently under development.
 
 <strong>Features</strong>
  - TypeScript for type safety
