@@ -9,7 +9,7 @@ import {
 } from '@/components/ui/dialog';
 import { toast } from 'sonner';
 import { Plus } from 'lucide-react';
-import { InvoiceFormSchema } from '@/app/api/graphql/models/Invoice';
+import { InvoiceFormSchema } from '@/lib/schema';
 import { Button } from '../ui/button';
 import { InvoiceForm } from './InvoiceForm';
 

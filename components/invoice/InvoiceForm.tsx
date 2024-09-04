@@ -30,7 +30,6 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import useSWR from 'swr';
 import { fetcher } from '@/lib/functions/fetcher';
-import { InvoiceFormSchema } from '@/app/api/graphql/models/Invoice';
 import { netPaymentData, status } from '@/lib/data';
 import { Deliverable } from '@/lib/types/data';
 import { InvoiceFormProps } from '@/lib/types/props';
@@ -41,6 +40,7 @@ import { Calendar } from '../ui/calendar';
 import { Input } from '../ui/input';
 import { Button } from '../ui/button';
 import Icon from '../Icon';
+import { InvoiceFormSchema } from '../../lib/schema';
 
 function calculateDueDate(invoiceDate: Date, paymentTerms: string): Date {
   const daysToAdd = {

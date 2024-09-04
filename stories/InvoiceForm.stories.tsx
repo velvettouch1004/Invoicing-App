@@ -37,6 +37,7 @@ export const InvoiceFormComponent: Story = {
     },
     isEditing: false,
     onSubmit: (data) => {
+      /* eslint-disable-next-line no-console */
       console.log(data);
     },
   },
